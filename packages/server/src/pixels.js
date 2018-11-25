@@ -1,33 +1,31 @@
-const { rgb2Int } = require('./helpers');
-
 let pixelData;
 
 module.exports.initializePixels = count => {
-  pixelData = new Uint32Array(count);
+  pixelData = new Array(count).fill({ r: 0, g: 0, b: 0 });
 
   return pixelData;
 };
 
-module.exports.setPixelColor = (pixelId, { r, g, b}) => {
-  pixelData[pixelId] = rgb2Int(r, g, b);
+module.exports.setPixelColor = (pixelId, { r, g, b }) => {
+  pixelData[pixelId] = { r, g, b };
 
   return pixelData;
-}
+};
 
 module.exports.setAllPixelsToColor = ({ r, g, b }) => {
-  const color = rgb2Int(r, g, b);
+  const color = { r, g, b };
 
   pixelData = pixelData.fill(color);
 
   return pixelData;
-}
+};
 
 module.exports.resetAllPixels = () => {
-  const color = rgb2Int(0, 0, 0);
-  
+  const color = { r: 0, g: 0, b: 0 };
+
   pixelData = pixelData.fill(color);
 
   return pixelData;
-}
+};
 
 module.exports.getCurrentPixelState = () => pixelData;
