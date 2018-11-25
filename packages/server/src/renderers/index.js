@@ -1,10 +1,11 @@
-module.exports = (renderer, ledCount) => (req, res, next) => {
-  const { initialize, render } = require(`./${renderer}.js`);
+module.exports = (renderer, ledCount, tree) => (req, res, next) => {
+  const { initialize, render, refreshRate } = require(`./${renderer}.js`);
 
-  initialize(ledCount);
+  initialize(ledCount, tree);
 
   req.ledRenderer = {
-    render
+    render,
+    refreshRate
   };
 
   next();

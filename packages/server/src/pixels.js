@@ -20,6 +20,14 @@ module.exports.setAllPixelsToColor = ({ r, g, b }) => {
   return pixelData;
 };
 
+module.exports.setManyPixelColors = pixels => {
+  pixels.forEach(({ r, g, b }, pixelId) => {
+    pixelData[pixelId] = { r, g, b };
+  });
+
+  return pixelData;
+};
+
 module.exports.resetAllPixels = () => {
   const color = { r: 0, g: 0, b: 0 };
 

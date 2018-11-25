@@ -10,3 +10,5 @@ module.exports.initialize = () => {
 module.exports.render = output => {
   ws281x.render(output.map(({ r, g, b }) => rgb2Int(r, g, b)));
 };
+
+module.exports.refreshRate = 1000 / 30;
