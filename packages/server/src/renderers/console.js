@@ -19,6 +19,7 @@ module.exports.render = output => {
       ...new Array(Math.ceil(diff / 2)).fill(" ")
     );
   });
+  console.log("\n");
 };
 
-module.exports.refreshRate = 100;
+module.exports.refreshRate = 50;

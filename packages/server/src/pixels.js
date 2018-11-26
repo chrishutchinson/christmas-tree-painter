@@ -19,8 +19,6 @@ module.exports.setAllPixelsToColor = ({ r, g, b }) => {
 
   pixelData = pixelData.fill(color);
 
-  console.log({ pixelData });
-
   return pixelData;
 };
 
@@ -41,19 +39,3 @@ const resetAllPixels = (module.exports.resetAllPixels = () => {
 });
 
 module.exports.getCurrentPixelState = () => pixelData;
-
-module.exports.runTest = async render => {
-  render(setManyPixelColors([{ r: 200, g: 100, b: 50 }]));
-
-  await delay();
-
-  render(setManyPixelColors([{ r: 100, g: 200, b: 50 }]));
-
-  await delay();
-
-  render(setManyPixelColors([{ r: 50, g: 100, b: 200 }]));
-
-  await delay();
-
-  render(resetAllPixels());
-};
