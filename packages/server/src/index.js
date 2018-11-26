@@ -11,7 +11,9 @@ const {
   setPixelColor,
   setAllPixelsToColor,
   resetAllPixels,
-  setManyPixelColors
+  setManyPixelColors,
+  getCurrentPixelState,
+  runTest
 } = require("./pixels");
 
 process.on("SIGINT", resetAndExit);
@@ -21,16 +23,16 @@ let cycleInterval;
 
 const app = express();
 
+initializePixels(LED_COUNT);
+
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  initializePixels(LED_COUNT);
-  next();
-});
 app.use(registerRenderer("console", LED_COUNT, tree));
 
 app.post("/pixel/:pixelId", (req, res) => {
   const { pixelId } = req.params;
   const { color } = req.body;
+
+  console.log(getCurrentPixelState());
 
   if (parseInt(pixelId) > LED_COUNT || parseInt(pixelId) < 0) {
     res
@@ -77,6 +79,12 @@ app.get("/tree", (req, res) => {
   res.json(tree);
 });
 
+app.get("/test", async (req, res) => {
+  await runTest(req.ledRenderer.render);
+
+  res.end();
+});
+
 app.post("/mode/:mode", (req, res) => {
   const { mode } = req.params;
   const { body } = req;
@@ -113,4 +121,4 @@ app.post("/mode/:mode", (req, res) => {
   res.send(`Mode set to '${mode}'!`);
 });
 
-app.listen(3000, () => console.log(`App listening on port 3000!`));
+app.listen(2811, () => console.log(`App listening on port 2811!`));
