@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <AppStyle>
         <GlobalStyle />
-        <Container>
+        <Container hasInitialised={!!hostname}>
           <hr />
           <h1>🌟 🎄 🌟 🎄 🌟 🎄 🌟</h1>
           <h1>Paint your Christmas tree</h1>
@@ -32,7 +32,7 @@ class App extends React.Component {
           {!hostname && (
             <HostnameInput onComplete={this.handleHostnameCompletion} />
           )}
-          {hostname && <Tree />}
+          {hostname && <Tree hostname={hostname} />}
         </Container>
       </AppStyle>
     );

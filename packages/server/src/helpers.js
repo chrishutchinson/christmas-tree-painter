@@ -25,8 +25,15 @@ const colorwheel = position => {
   return { r: scaledPosition, g: 255 - scaledPosition, b: 0 };
 };
 
+const flatten = arr =>
+  arr.reduce((acc, a) => {
+    if (Array.isArray(a)) return [...acc, ...flatten(a)];
+    return [...acc, a];
+  }, []);
+
 module.exports = {
   resetAndExit,
   delay,
-  colorwheel
+  colorwheel,
+  flatten
 };

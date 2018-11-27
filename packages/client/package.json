@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "react": "^16.6.3",
+    "react-color": "^2.14.1",
     "react-dom": "^16.6.3",
-    "styled-components": "^4.1.1"
+    "styled-components": "^4.1.1",
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
     "@types/react": "^16.7.7",
+    "@types/react-color": "^2.13.6",
     "@types/react-dom": "^16.0.10",
     "@types/styled-components": "^4.1.1",
+    "@types/tinycolor2": "^1.4.1",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
     "webpack": "^4.26.1",

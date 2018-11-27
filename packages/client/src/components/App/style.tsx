@@ -21,11 +21,21 @@ export const AppStyle = styled.main`
   height: 100vh;
 `;
 
-export const Container = styled.div`
+interface ContainerProps {
+  hasInitialised: boolean;
+}
+export const Container = styled.div<ContainerProps>`
   margin: auto;
   width: 100%;
   max-width: 325px;
   text-align: center;
+
+  ${(p: ContainerProps) =>
+    p.hasInitialised
+      ? `
+          font-size: 10px;
+        `
+      : ""}
 
   h1 {
     margin: 0 0 10px;

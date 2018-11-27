@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const router = require("./router");
 const registerRenderer = require("./renderers");
@@ -16,6 +17,7 @@ process.on("SIGINT", resetAndExit);
 initializePixels(ledCount);
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(registerRenderer("console", ledCount, tree));
 app.use("/api/v1", router);
 

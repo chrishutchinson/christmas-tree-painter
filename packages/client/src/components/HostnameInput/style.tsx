@@ -40,3 +40,12 @@ export const Form = styled.form`
     font-size: 14px;
   }
 `;
+
+export const Message = styled.p`
+  border-radius: 3px;
+  border: 1px solid #751927;
+  padding: 10px;
+  color: #751927;
+  font-size: 14px;
+  line-height: 1.3em;
+`;

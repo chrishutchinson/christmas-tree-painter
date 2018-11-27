@@ -5,11 +5,15 @@ const {
   getCurrentPixelState
 } = require("../pixels");
 
+const getPixels = (req, res) => {
+  const pixels = getCurrentPixelState();
+
+  res.json(pixels);
+};
+
 const setPixel = (req, res) => {
   const { pixelId } = req.params;
   const { color } = req.body;
-
-  console.log(getCurrentPixelState());
 
   if (parseInt(pixelId) > ledCount || parseInt(pixelId) < 0) {
     res
@@ -54,5 +58,6 @@ const setPixels = (req, res) => {
 
 module.exports = {
   setPixel,
-  setPixels
+  setPixels,
+  getPixels
 };

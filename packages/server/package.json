@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "nodemon": "^1.18.6",
     "rpi-ws281x-native": "^0.9.0"
