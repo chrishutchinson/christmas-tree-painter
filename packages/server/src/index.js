@@ -15,7 +15,7 @@ const APP_PORT = 2811;
 args.option("renderer", "The renderer to use to output the lights", "ws281x");
 
 const flags = args.parse(process.argv);
-console.log(flags.renderer);
+
 if (!validRenderers.includes(flags.renderer)) {
   console.error(
     "Please provide a valid renderer, options:",
