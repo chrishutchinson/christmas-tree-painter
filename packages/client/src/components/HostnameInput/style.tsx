@@ -23,8 +23,9 @@ export const Form = styled.form`
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 2px;
-    font-size: 14px;
+    font-size: 16px;
     min-width: 200px;
+    appearance: none;
   }
 
   input[type="submit"] {
@@ -38,6 +39,7 @@ export const Form = styled.form`
     font-weight: 700;
     letter-spacing: 2px;
     font-size: 14px;
+    appearance: none;
   }
 `;
 

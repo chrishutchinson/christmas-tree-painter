@@ -1,15 +1,14 @@
 import * as React from "react";
 import * as tinycolor from "tinycolor2";
 
-import { getTree, getPixels, setPixelColor } from "../../api/index";
+import { getTree, getPixels, setPixelColor, setMode } from "../../api/index";
 import { ColorResult } from "../../types";
 import PaintPot from "../PaintPot/index";
-import Controls from "../Controls/index";
+import ModeControl, { Mode } from "../ModeControl/index";
 
 import { TreeContainer, LED } from "./style";
 
 type LoadState = "NOT_LOADED" | "IS_LOADING" | "LOADED" | "LOAD_ERROR";
-type Mode = "PAINT" | "CYCLE" | "RANDOM";
 
 interface TreeProps {
   hostname: string;
@@ -23,6 +22,7 @@ interface TreeState {
     [key: number]: ColorResult;
   };
   isDragging: boolean;
+  mode: Mode;
 }
 
 interface Pixel {
@@ -60,7 +60,8 @@ class Tree extends React.Component<TreeProps, TreeState> {
       b: 139
     }),
     paint: {},
-    isDragging: false
+    isDragging: false,
+    mode: "PAINT"
   };
 
   handleColorSelect = (color: ColorResult) => {
@@ -98,6 +99,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     e:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>
+      | React.TouchEvent<HTMLButtonElement>
   ) => {
     const { hostname } = this.props;
     const { activeColor } = this.state;
@@ -110,13 +112,17 @@ class Tree extends React.Component<TreeProps, TreeState> {
     );
   };
 
-  handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  handleMouseDown = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     this.setState(() => ({
       isDragging: true
     }));
   };
 
-  handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+  handleMouseUp = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     this.setState(() => ({
       isDragging: false
     }));
@@ -136,12 +142,29 @@ class Tree extends React.Component<TreeProps, TreeState> {
     );
   };
 
-  handleControlSelect = (mode: Mode) => {
-    console.log({ mode });
+  handleModeChange = (mode: Mode) => {
+    const { hostname } = this.props;
+
+    this.setState(() => ({ loadState: "IS_LOADING" }));
+
+    setMode(hostname, mode)
+      .then(() => (mode === "PAINT" ? getPixels(hostname) : Promise.resolve()))
+      .then(pixels => {
+        this.setState(({ paint }) => ({
+          mode,
+          paint: mode === "PAINT" ? mapPixelsToPaint(pixels) : paint,
+          loadState: "LOADED"
+        }));
+      })
+      .catch(() => {
+        this.setState(() => ({
+          loadState: "LOAD_ERROR"
+        }));
+      });
   };
 
   render() {
-    const { loadState, tree, paint, activeColor } = this.state;
+    const { loadState, tree, paint, activeColor, mode } = this.state;
 
     if (["LOAD_ERROR", "NOT_LOADED"].includes(loadState)) return null;
 
@@ -149,28 +172,34 @@ class Tree extends React.Component<TreeProps, TreeState> {
 
     return (
       <TreeContainer
+        onTouchStart={this.handleMouseDown}
+        onTouchEnd={this.handleMouseUp}
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
       >
-        {tree.map((row, index) => (
-          <p key={index}>
-            {row.map(led => (
-              <LED
-                key={led}
-                backgroundColor={paint[led]}
-                onMouseDown={this.handlePaint(led)}
-                onKeyPress={this.handlePaint(led)}
-                onMouseOver={this.handlePaintMouseover(led)}
-              />
-            ))}
-          </p>
-        ))}
+        <ModeControl selected={mode} onChange={this.handleModeChange} />
 
-        <PaintPot
-          color={activeColor}
-          onChangeComplete={this.handleColorSelect}
-        />
-        {/* <Controls onSelect={this.handleControlSelect} /> */}
+        {mode === "PAINT" && (
+          <React.Fragment>
+            {tree.map((row, index) => (
+              <p key={index}>
+                {row.map(led => (
+                  <LED
+                    key={led}
+                    backgroundColor={paint[led]}
+                    onMouseDown={this.handlePaint(led)}
+                    onKeyPress={this.handlePaint(led)}
+                    onMouseOver={this.handlePaintMouseover(led)}
+                  />
+                ))}
+              </p>
+            ))}
+            <PaintPot
+              color={activeColor}
+              onChangeComplete={this.handleColorSelect}
+            />
+          </React.Fragment>
+        )}
       </TreeContainer>
     );
   }

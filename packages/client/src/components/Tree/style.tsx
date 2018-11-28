@@ -18,9 +18,7 @@ export const LED = styled.button<LEDProps>`
   width: 15px;
   border: 1px solid #bababa;
   margin: 2px 1px;
-  border-radius: 2px;
-  ${(props: LEDProps) =>
-    props.backgroundColor
-      ? `background-color: ${props.backgroundColor.hex};`
-      : ""}
+  border-radius: 4px;
+  ${({ backgroundColor }: LEDProps) =>
+    backgroundColor ? `background-color: ${backgroundColor.hex};` : ""}
 `;

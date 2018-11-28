@@ -6,8 +6,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Libre Baskerville", serif;
-    font-weight: 400;
     background: #fafafa;
     margin: 0;
   }
@@ -22,23 +20,32 @@ export const AppStyle = styled.main`
   height: 100vh;
 `;
 
-interface ContainerProps {
-  hasInitialised: boolean;
-}
-export const Container = styled.div<ContainerProps>`
-  margin: auto;
+export const AppContainer = styled.div`
+  margin: 0 auto;
+  padding: 20px 0;
   width: 100%;
   max-width: 325px;
   text-align: center;
+`;
+
+export const Core = styled.main`
   display: flex;
   flex-direction: column;
   align-content: space-between;
-  ${(p: ContainerProps) =>
+`;
+
+interface HeaderProps {
+  hasInitialised: boolean;
+}
+
+export const Header = styled.header<HeaderProps>`
+  ${(p: HeaderProps) =>
     p.hasInitialised
       ? `
           font-size: 10px;
         `
       : ""}
+
   h1 {
     margin: 0 0 10px;
   }
