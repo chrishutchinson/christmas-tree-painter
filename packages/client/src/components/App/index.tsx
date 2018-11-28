@@ -25,10 +25,12 @@ class App extends React.Component {
       <AppStyle>
         <GlobalStyle />
         <Container hasInitialised={!!hostname}>
-          <hr />
-          <h1>🌟 🎄 🌟 🎄 🌟 🎄 🌟</h1>
-          <h1>Paint your Christmas tree</h1>
-          <hr />
+          <header>
+            <hr />
+            <h1>🌟 🎄 🌟 🎄 🌟 🎄 🌟</h1>
+            <h1>Paint your Christmas tree</h1>
+            <hr />
+          </header>
           {!hostname && (
             <HostnameInput onComplete={this.handleHostnameCompletion} />
           )}

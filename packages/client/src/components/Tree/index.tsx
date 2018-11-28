@@ -4,10 +4,12 @@ import * as tinycolor from "tinycolor2";
 import { getTree, getPixels, setPixelColor } from "../../api/index";
 import { ColorResult } from "../../types";
 import PaintPot from "../PaintPot/index";
+import Controls from "../Controls/index";
 
 import { TreeContainer, LED } from "./style";
 
 type LoadState = "NOT_LOADED" | "IS_LOADING" | "LOADED" | "LOAD_ERROR";
+type Mode = "PAINT" | "CYCLE" | "RANDOM";
 
 interface TreeProps {
   hostname: string;
@@ -134,6 +136,10 @@ class Tree extends React.Component<TreeProps, TreeState> {
     );
   };
 
+  handleControlSelect = (mode: Mode) => {
+    console.log({ mode });
+  };
+
   render() {
     const { loadState, tree, paint, activeColor } = this.state;
 
@@ -164,6 +170,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
           color={activeColor}
           onChangeComplete={this.handleColorSelect}
         />
+        {/* <Controls onSelect={this.handleControlSelect} /> */}
       </TreeContainer>
     );
   }

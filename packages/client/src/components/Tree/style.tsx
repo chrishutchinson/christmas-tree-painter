@@ -14,8 +14,8 @@ interface LEDProps {
 }
 export const LED = styled.button<LEDProps>`
   display: inline-block;
-  height: 50px;
-  width: 20px;
+  height: 40px;
+  width: 15px;
   border: 1px solid #bababa;
   margin: 2px 1px;
   border-radius: 2px;

@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Libre Baskerville", serif;
     font-weight: 400;
     background: #fafafa;
+    margin: 0;
   }
 
   h1, h2, h3, h4, h5, h6, strong {
@@ -29,14 +30,15 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   max-width: 325px;
   text-align: center;
-
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
   ${(p: ContainerProps) =>
     p.hasInitialised
       ? `
           font-size: 10px;
         `
       : ""}
-
   h1 {
     margin: 0 0 10px;
   }
@@ -46,8 +48,12 @@ export const Container = styled.div<ContainerProps>`
     width: 100%;
     height: 4px;
     max-width: 180px;
-    margin: 20px auto;
+    margin: 10px auto;
     border-top: 1px solid #bababa;
     border-bottom: 1px solid #bababa;
+
+    @media screen and (min-width: 768px) {
+      margin: 20px auto;
+    }
   }
 `;
