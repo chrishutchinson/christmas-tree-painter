@@ -8,7 +8,7 @@ module.exports.initialize = ledCount => {
 };
 
 module.exports.render = output => {
-  ws281x.render(output.map(({ r, g, b }) => rgb2Int(r, g, b)));
+  ws281x.render(output.map(({ r, g, b }) => rgb2Int(g, r, b)));
 };
 
 module.exports.refreshRate = 1000 / 30;
