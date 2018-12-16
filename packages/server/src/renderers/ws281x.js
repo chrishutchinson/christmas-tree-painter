@@ -16,7 +16,7 @@ module.exports.setBrightness = b => {
   if (!lastOutput) return;
 
   ws281x.render(
-    output.map(({ r, g, b }) =>
+    lastOutput.map(({ r, g, b }) =>
       rgb2Int(g * brightness, r * brightness, b * brightness)
     )
   );
@@ -24,6 +24,7 @@ module.exports.setBrightness = b => {
 
 module.exports.render = output => {
   lastOutput = output;
+
   ws281x.render(
     output.map(({ r, g, b }) =>
       rgb2Int(g * brightness, r * brightness, b * brightness)
