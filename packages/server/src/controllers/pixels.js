@@ -2,7 +2,9 @@ const { ledCount } = require("../config");
 const {
   setPixelColor,
   setManyPixelColors,
-  getCurrentPixelState
+  getCurrentPixelState,
+  getCurrentBrightnessState,
+  setBrightness
 } = require("../pixels");
 
 const getPixels = (req, res) => {
@@ -56,8 +58,27 @@ const setPixels = (req, res) => {
   res.send(`${pixels.length} pixels painted!`);
 };
 
+const setPixelBrightness = (req, res) => {
+  const { brightness } = req.body;
+
+  if (brightness === false || brightness < 0 || brightness > 1) {
+    res.status(400).send("Please POST a brightness value between 0 and 1");
+    return;
+  }
+
+  req.ledRenderer.setBrightness(setBrightness(brightness));
+
+  res.send(`Brightness set to ${brightness}!`);
+};
+
+const getPixelBrightness = (req, res) => {
+  res.json(getCurrentBrightnessState());
+};
+
 module.exports = {
   setPixel,
   setPixels,
-  getPixels
+  getPixels,
+  setPixelBrightness,
+  getPixelBrightness
 };

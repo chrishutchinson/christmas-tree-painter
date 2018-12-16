@@ -1,10 +1,18 @@
 import * as React from "react";
 import * as tinycolor from "tinycolor2";
 
-import { getTree, getPixels, setPixelColor, setMode } from "../../api/index";
+import {
+  getTree,
+  getPixels,
+  setPixelColor,
+  setMode,
+  getBrightness,
+  setBrightness
+} from "../../api/index";
 import { ColorResult } from "../../types";
 import PaintPot from "../PaintPot/index";
 import ModeControl, { Mode } from "../ModeControl/index";
+import BrightnessControl from "../BrightnessControl/index";
 
 import { TreeContainer, LED } from "./style";
 
@@ -18,6 +26,7 @@ interface TreeState {
   loadState: LoadState;
   tree?: Array<Array<number>>;
   activeColor?: ColorResult;
+  brightness: number;
   paint: {
     [key: number]: ColorResult;
   };
@@ -59,6 +68,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       g: 125,
       b: 139
     }),
+    brightness: 1,
     paint: {},
     isDragging: false,
     mode: "PAINT"
@@ -78,14 +88,16 @@ class Tree extends React.Component<TreeProps, TreeState> {
     }));
 
     try {
-      const [tree, pixels] = await Promise.all([
+      const [tree, pixels, brightness] = await Promise.all([
         getTree(hostname),
-        getPixels(hostname)
+        getPixels(hostname),
+        getBrightness(hostname)
       ]);
 
       this.setState(() => ({
         loadState: "LOADED",
         tree,
+        brightness: parseFloat(brightness),
         paint: mapPixelsToPaint(pixels)
       }));
     } catch (e) {
@@ -163,8 +175,27 @@ class Tree extends React.Component<TreeProps, TreeState> {
       });
   };
 
+  handleBrightnessChange = (brightness: number) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { hostname } = this.props;
+
+    this.setState(() => ({
+      brightness
+    }));
+
+    setBrightness(hostname, brightness);
+  };
+
   render() {
-    const { loadState, tree, paint, activeColor, mode } = this.state;
+    const {
+      loadState,
+      tree,
+      paint,
+      activeColor,
+      brightness,
+      mode
+    } = this.state;
 
     if (["LOAD_ERROR", "NOT_LOADED"].includes(loadState)) return null;
 
@@ -178,6 +209,11 @@ class Tree extends React.Component<TreeProps, TreeState> {
         onMouseUp={this.handleMouseUp}
       >
         <ModeControl selected={mode} onChange={this.handleModeChange} />
+
+        <BrightnessControl
+          brightness={brightness}
+          onChange={this.handleBrightnessChange}
+        />
 
         {mode === "PAINT" && (
           <React.Fragment>

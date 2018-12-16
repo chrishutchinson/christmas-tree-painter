@@ -5,14 +5,16 @@ module.exports.registerRenderer = (renderer, ledCount, tree) => (
   res,
   next
 ) => {
-  const { initialize, render, refreshRate } = require(`./${renderer}.js`);
+  const {
+    initialize,
+    render,
+    setBrightness,
+    refreshRate
+  } = require(`./${renderer}.js`);
 
   initialize(ledCount, tree);
 
-  req.ledRenderer = {
-    render,
-    refreshRate
-  };
+  req.ledRenderer = { render, refreshRate, setBrightness };
 
   next();
 };
