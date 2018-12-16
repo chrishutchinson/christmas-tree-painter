@@ -37,3 +37,23 @@ export const setMode = (hostname: string, mode: Mode) =>
     if (res.status !== 200) throw new Error(res.statusText);
     return res;
   });
+
+export const getBrightness = (hostname: string) =>
+  fetch(`http://${hostname}/api/v1/pixels/brightness`).then(res => {
+    if (res.status !== 200) throw new Error(res.statusText);
+    return res.json();
+  });
+
+export const setBrightness = (hostname: string, brightness: number) =>
+  fetch(`http://${hostname}/api/v1/pixels/brightness`, {
+    method: "post",
+    body: JSON.stringify({
+      brightness
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(res => {
+    if (res.status !== 200) throw new Error(res.statusText);
+    return res;
+  });

@@ -1,6 +1,7 @@
 const delay = (time = 500) => new Promise(resolve => setTimeout(resolve, time));
 
 let pixelData;
+let brightnessData = 1;
 
 module.exports.initializePixels = count => {
   pixelData = new Array(count).fill({ r: 0, g: 0, b: 0 });
@@ -37,5 +38,12 @@ const resetAllPixels = (module.exports.resetAllPixels = () => {
 
   return pixelData;
 });
+
+module.exports.getCurrentBrightnessState = () => brightnessData;
+
+module.exports.setBrightness = brightness => {
+  brightnessData = brightness;
+  return brightnessData;
+};
 
 module.exports.getCurrentPixelState = () => pixelData;
