@@ -1,6 +1,6 @@
 # Paint your own Christmas Tree 🎄
 
-> A Node.js server and TypeScript web client allow you to colour in your
+> A Node.js server and TypeScript web client allowing you to colour in your
 > Christmas tree lights
 
 ## Compatible lights
@@ -20,8 +20,8 @@
 ### Node.js server
 
 1. `cd` into the `packages/server` directory
-2. Install the dependencies using `$ npm install` or `$ yarn`
-3. Start the server by running `$ npm run start` or `$ yarn start`
+2. Install the dependencies using `$ npm install`
+3. Start the server by running `$ npm run start`
 
 This will run the server on your device on port `2811`. You can then use the
 client app to connect to this server.
