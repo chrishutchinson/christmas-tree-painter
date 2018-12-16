@@ -15,7 +15,7 @@ interface HostnameInputState {
 const testHostname = (hostname: string, silentMode: boolean = true) =>
   new Promise((resolve, reject) => {
     const timeout = setTimeout(reject, 10000);
-    fetch(`http://${hostname}/api/v1/connect${silentMode ? "/silent" : ""}`)
+    fetch(`${hostname}/api/v1/connect${silentMode ? "/silent" : ""}`)
       .then(res => {
         if (res.status !== 200) throw new Error(res.statusText);
         clearTimeout(timeout);
