@@ -1,4 +1,7 @@
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const { NODE_ENV } = process.env;
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -11,7 +14,7 @@ module.exports = {
     open: true,
     port: 8000
   },
-  mode: "development",
+  mode: NODE_ENV === "prod" ? "production" : "development",
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
@@ -25,5 +28,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([{ from: "./src/index.html", to: "./index.html" }])
+  ]
 };

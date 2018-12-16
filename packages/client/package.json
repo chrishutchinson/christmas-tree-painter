@@ -6,7 +6,8 @@
   "author": "Chris Hutchinson <chris_hutchinson@me.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot",
+    "build": "rm -rf ./dist && webpack"
   },
   "dependencies": {
     "react": "^16.6.3",
@@ -21,6 +22,7 @@
     "@types/react-dom": "^16.0.10",
     "@types/styled-components": "^4.1.1",
     "@types/tinycolor2": "^1.4.1",
+    "copy-webpack-plugin": "^4.6.0",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
     "webpack": "^4.26.1",
