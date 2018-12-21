@@ -2,6 +2,9 @@ const delay = (time = 500) => new Promise(resolve => setTimeout(resolve, time));
 
 let pixelData;
 let brightnessData = 1;
+let onOffData = true;
+
+module.exports.getBlankPixels = count => new Array(count).fill({ r: 0, g: 0, b: 0 });
 
 module.exports.initializePixels = count => {
   pixelData = new Array(count).fill({ r: 0, g: 0, b: 0 });
@@ -46,4 +49,11 @@ module.exports.setBrightness = brightness => {
   return brightnessData;
 };
 
-module.exports.getCurrentPixelState = () => pixelData;
+const getCurrentPixelState = module.exports.getCurrentPixelState = () => pixelData;
+
+module.exports.getSwitchState = () => onOffData;
+
+module.exports.setSwitchState = state => {
+  onOffData = !!state;
+  return onOffData;
+};
