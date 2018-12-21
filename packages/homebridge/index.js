@@ -38,13 +38,13 @@ class ChristmasTreeLights {
   }
 
   getSwitchOnCharacteristic(next) {
-    fetch(`${this.lightUrl}/api/v1/status`)
+    fetch(`${this.lightUrl}/api/v1/pixels/status`)
       .then(res => res.json())
       .then(json => next(null, json.currentState));
   }
 
   setSwitchOnCharacteristic(on, next) {
-    fetch(`${this.lightUrl}/api/v1/status`, {
+    fetch(`${this.lightUrl}/api/v1/pixels/status`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
