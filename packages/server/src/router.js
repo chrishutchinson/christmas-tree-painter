@@ -7,12 +7,16 @@ const {
   setPixels,
   getPixels,
   setPixelBrightness,
-  getPixelBrightness
+  getPixelBrightness,
+  getPixelStatus,
+  setPixelStatus
 } = require("./controllers/pixels");
 const { getTree } = require("./controllers/tree");
 const { setMode } = require("./controllers/mode");
 const { connect } = require("./controllers/connection");
 
+router.get("/pixels/status", getPixelStatus);
+router.post("/pixels/status", setPixelStatus);
 router.post("/pixels/brightness", setPixelBrightness);
 router.get("/pixels/brightness", getPixelBrightness);
 router.post("/pixel/:pixelId", setPixel);

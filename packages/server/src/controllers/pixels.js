@@ -4,8 +4,42 @@ const {
   setManyPixelColors,
   getCurrentPixelState,
   getCurrentBrightnessState,
-  setBrightness
+  setBrightness,
+  getSwitchState,
+  setSwitchState,
+  getBlankPixels
 } = require("../pixels");
+
+const getPixelStatus = (req, res) => {
+  res.json({
+    currentState: getSwitchState()
+  });
+};
+
+const setPixelStatus = (req, res) => {
+  const currentState = getSwitchState();
+
+  if(req.body.targetState === currentState) {
+    res.end();
+    return;
+  }
+
+  if (req.body.targetState) {
+    const pixels = getCurrentPixelState();
+    setSwitchState(true);
+    req.ledRenderer.render(pixels);
+    res.json({
+      currentState: true
+    });
+    return;
+  }
+
+  setSwitchState(false);
+  req.ledRenderer.render(getBlankPixels(ledCount));
+  res.json({
+    currentState: false
+  });
+};
 
 const getPixels = (req, res) => {
   const pixels = getCurrentPixelState();
@@ -80,5 +114,7 @@ module.exports = {
   setPixels,
   getPixels,
   setPixelBrightness,
-  getPixelBrightness
+  getPixelBrightness,
+  getPixelStatus,
+  setPixelStatus
 };
