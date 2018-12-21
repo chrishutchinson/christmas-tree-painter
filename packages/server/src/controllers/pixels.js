@@ -7,6 +7,32 @@ const {
   setBrightness
 } = require("../pixels");
 
+const getPixelStatus = (req, res) => {
+  const brightness = getCurrentBrightnessState();
+
+  res.json({
+    brightness,
+    currentState: brightness > 0 ? true : false
+  });
+};
+
+const setPixelStatus = (req, res) => {
+  if(req.body.targetState) {
+    req.ledRenderer.setBrightness(setBrightness(1));
+    res.json({
+      currentState: true
+    });
+    return;
+  }
+
+  req.ledRenderer.setBrightness(setBrightness(0));
+  res.json({
+    currentState: false
+  });
+};
+
+
+
 const getPixels = (req, res) => {
   const pixels = getCurrentPixelState();
 
@@ -80,5 +106,7 @@ module.exports = {
   setPixels,
   getPixels,
   setPixelBrightness,
-  getPixelBrightness
+  getPixelBrightness,
+  getPixelStatus,
+  setPixelStatus
 };
