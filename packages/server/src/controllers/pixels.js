@@ -17,7 +17,7 @@ const getPixelStatus = (req, res) => {
 };
 
 const setPixelStatus = (req, res) => {
-  if(req.body.targetState) {
+  if (req.body.targetState) {
     req.ledRenderer.setBrightness(setBrightness(1));
     res.json({
       currentState: true
@@ -30,8 +30,6 @@ const setPixelStatus = (req, res) => {
     currentState: false
   });
 };
-
-
 
 const getPixels = (req, res) => {
   const pixels = getCurrentPixelState();
