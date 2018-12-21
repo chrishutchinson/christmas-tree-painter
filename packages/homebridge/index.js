@@ -27,10 +27,7 @@ class ChristmasTreeLights {
       .setCharacteristic(Characteristic.SerialNumber, "808-080-808");
 
     const treeService = new Service.Lightbulb("Christmas Tree");
-    // treeService
-    //   .getCharacteristic(Characteristic.On)
-    //   .on("get", this.getSwitchOnCharacteristic.bind(this))
-    //   .on("set", this.setSwitchOnCharacteristic.bind(this));
+
     treeService
       .getCharacteristic(Characteristic.On)
       .on("get", this.getSwitchOnCharacteristic.bind(this))
@@ -40,34 +37,6 @@ class ChristmasTreeLights {
       .addCharacteristic(Characteristic.Brightness)
       .on("get", this.getSwitchBrightnessCharacteristic.bind(this))
       .on("set", this.setSwitchBrightnessCharacteristic.bind(this));
-
-    // treeService
-    //   .addCharacteristic(Characteristic.Hue)
-    //   .on("get", function(callback) {
-    //     bulb.getColor((err, hsv) => {
-    //       callback(err, hsv.h);
-    //     });
-    //   })
-    //   .on("set", function(value, callback) {
-    //     bulb.log("Set Characteristic.Hue to " + value);
-    //     bulb.hsv.h = value;
-    //     bulb.setColor(bulb.hsv);
-    //     callback();
-    //   });
-
-    // treeService
-    //   .addCharacteristic(Characteristic.Saturation)
-    //   .on("get", function(callback) {
-    //     bulb.getColor((err, hsv) => {
-    //       callback(err, hsv.s);
-    //     });
-    //   })
-    //   .on("set", function(value, callback) {
-    //     bulb.log("Set Characteristic.Saturation to " + value);
-    //     bulb.hsv.s = value;
-    //     bulb.setColor(bulb.hsv);
-    //     callback();
-    //   });
 
     this.informationService = informationService;
     this.treeService = treeService;
@@ -98,7 +67,7 @@ class ChristmasTreeLights {
 
   setSwitchBrightnessCharacteristic(value, next) {
     const brightness = parseFloat((value / 100).toFixed(2));
-    console.log({ brightness, value });
+
     fetch(`${this.lightUrl}/api/v1/pixels/brightness`, {
       method: "post",
       headers: {
