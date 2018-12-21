@@ -97,12 +97,14 @@ class ChristmasTreeLights {
   }
 
   setSwitchBrightnessCharacteristic(value, next) {
+    const brightness = parseFloat((value / 100).toFixed(2));
+    console.log({ brightness, value });
     fetch(`${this.lightUrl}/api/v1/pixels/brightness`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ brightness: parseFloat((value / 100).toFixed(2)) })
+      body: JSON.stringify({ brightness })
     }).then(() => next());
   }
 }
