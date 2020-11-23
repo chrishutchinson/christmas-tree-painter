@@ -1,8 +1,12 @@
 name: publish-homebridge-npm
-on: [push]
+on:
+  push:
+    branches:
+      - feature/publish-homebridge-to-npm
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - working-directory: packages/homebridge
-      - run: npm publish
+      - name: Publish
+        run: npm publish
+        working-directory: packages/homebridge
