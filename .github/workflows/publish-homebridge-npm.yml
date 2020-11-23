@@ -7,6 +7,14 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish
-        run: npm publish
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm install
         working-directory: packages/homebridge
+      - run: npm publish
+        working-directory: packages/homebridge
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
