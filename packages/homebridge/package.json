@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-christmas-tree-lights-ws2811",
+  "name": "homebridge-christmas-tree-lights-ws281x",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
