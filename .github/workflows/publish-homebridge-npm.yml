@@ -1,0 +1,8 @@
+name: publish-homebridge-npm
+on: [push]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - working-directory: packages/homebridge
+      - run: npm publish
