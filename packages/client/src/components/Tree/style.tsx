@@ -15,7 +15,6 @@ interface LEDProps {
 }
 export const LED = styled.button<LEDProps>`
   display: inline-block;
-  height: 40px;
   width: ${(props: LEDProps) => props.width}%;
   border: 1px solid #bababa;
   padding: 0;

@@ -17,6 +17,8 @@ import BrightnessControl from "../BrightnessControl/index";
 
 import { TreeContainer, LED } from "./style";
 
+const TREE_HEIGHT = 500;
+
 type LoadState = "NOT_LOADED" | "IS_LOADING" | "LOADED" | "LOAD_ERROR";
 
 interface TreeProps {
@@ -26,6 +28,7 @@ interface TreeProps {
 type TreeRow = {
   leds: Array<number>;
   width: number;
+  height: number;
 };
 
 interface TreeState {
@@ -228,25 +231,43 @@ class Tree extends React.Component<TreeProps, TreeState> {
 
         {mode === "PAINT" && (
           <React.Fragment>
-            {tree.map((row, index) => {
-              const ledWidth = row.width / row.leds.length;
-              console.log({ ledWidth });
+            <div
+              style={{
+                height: TREE_HEIGHT,
+              }}
+            >
+              {tree.map((row, index) => {
+                const totalHeight = tree.reduce(
+                  (acc, row) => acc + row.height,
+                  0
+                );
 
-              return (
-                <p key={index}>
-                  {row.leds.map((led) => (
-                    <LED
-                      key={led}
-                      width={ledWidth}
-                      backgroundColor={paint[led]}
-                      onMouseDown={this.handlePaint(led)}
-                      onKeyPress={this.handlePaint(led)}
-                      onMouseOver={this.handlePaintMouseover(led)}
-                    />
-                  ))}
-                </p>
-              );
-            })}
+                const ledWidth = row.width / row.leds.length;
+                const rowHeight =
+                  ((row.height * (TREE_HEIGHT / totalHeight)) / TREE_HEIGHT) *
+                  100;
+
+                return (
+                  <p
+                    key={index}
+                    style={{
+                      height: `${rowHeight}%`,
+                    }}
+                  >
+                    {row.leds.map((led) => (
+                      <LED
+                        key={led}
+                        width={ledWidth}
+                        backgroundColor={paint[led]}
+                        onMouseDown={this.handlePaint(led)}
+                        onKeyPress={this.handlePaint(led)}
+                        onMouseOver={this.handlePaintMouseover(led)}
+                      />
+                    ))}
+                  </p>
+                );
+              })}
+            </div>
             <PaintPot
               colors={colors}
               color={activeColor}
