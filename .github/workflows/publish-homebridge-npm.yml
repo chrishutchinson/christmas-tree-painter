@@ -2,7 +2,7 @@ name: publish-homebridge-npm
 on:
   push:
     branches:
-      - feature/publish-homebridge-to-npm
+      - master
 jobs:
   publish:
     runs-on: ubuntu-latest
