@@ -12,6 +12,7 @@ const {
   setPixelStatus,
 } = require("./controllers/pixels");
 const { getTree } = require("./controllers/tree");
+const { getColors } = require("./controllers/colors");
 const { setMode } = require("./controllers/mode");
 const { connect } = require("./controllers/connection");
 
@@ -24,6 +25,7 @@ router.post("/pixels", setPixels);
 router.get("/pixels", getPixels);
 
 router.get("/tree", getTree);
+router.get("/colors", getColors);
 
 router.post("/mode/:mode", setMode);
 

@@ -6,6 +6,12 @@ export const getTree = (hostname: string) =>
     return res.json();
   });
 
+export const getColors = (hostname: string) =>
+  fetch(`${hostname}/api/v1/colors`).then((res) => {
+    if (res.status !== 200) throw new Error(res.statusText);
+    return res.json();
+  });
+
 export const getPixels = (hostname: string) =>
   fetch(`${hostname}/api/v1/pixels`).then((res) => {
     if (res.status !== 200) throw new Error(res.statusText);

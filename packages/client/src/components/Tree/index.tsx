@@ -3,6 +3,7 @@ import * as tinycolor from "tinycolor2";
 
 import {
   getTree,
+  getColors,
   getPixels,
   setPixelColor,
   setMode,
@@ -25,6 +26,7 @@ interface TreeProps {
 interface TreeState {
   loadState: LoadState;
   tree?: Array<Array<number>>;
+  colors?: Array<string>;
   activeColor?: ColorResult;
   brightness: number;
   paint: {
@@ -63,6 +65,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
   state: TreeState = {
     loadState: "NOT_LOADED",
     tree: null,
+    colors: null,
     activeColor: convertPixelToColorResult({
       r: 96,
       g: 125,
@@ -88,8 +91,9 @@ class Tree extends React.Component<TreeProps, TreeState> {
     }));
 
     try {
-      const [tree, pixels, brightness] = await Promise.all([
+      const [tree, colors, pixels, brightness] = await Promise.all([
         getTree(hostname),
+        getColors(hostname),
         getPixels(hostname),
         getBrightness(hostname),
       ]);
@@ -97,6 +101,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       this.setState(() => ({
         loadState: "LOADED",
         tree,
+        colors,
         brightness: parseFloat(brightness),
         paint: mapPixelsToPaint(pixels),
       }));
@@ -191,6 +196,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     const {
       loadState,
       tree,
+      colors,
       paint,
       activeColor,
       brightness,
@@ -231,6 +237,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
               </p>
             ))}
             <PaintPot
+              colors={colors}
               color={activeColor}
               onChangeComplete={this.handleColorSelect}
             />
