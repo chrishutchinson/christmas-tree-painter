@@ -7,7 +7,7 @@ import {
   setPixelColor,
   setMode,
   getBrightness,
-  setBrightness
+  setBrightness,
 } from "../../api/index";
 import { ColorResult } from "../../types";
 import PaintPot from "../PaintPot/index";
@@ -53,7 +53,7 @@ const convertPixelToColorResult = (pixel: Pixel) => {
     hsl,
     hex: transparent ? "transparent" : `#${hex}`,
     rgb,
-    hsv
+    hsv,
   };
 };
 const mapPixelsToPaint = (pixels: Array<Pixel>) =>
@@ -66,17 +66,17 @@ class Tree extends React.Component<TreeProps, TreeState> {
     activeColor: convertPixelToColorResult({
       r: 96,
       g: 125,
-      b: 139
+      b: 139,
     }),
     brightness: 1,
     paint: {},
     isDragging: false,
-    mode: "PAINT"
+    mode: "PAINT",
   };
 
   handleColorSelect = (color: ColorResult) => {
     this.setState(() => ({
-      activeColor: color
+      activeColor: color,
     }));
   };
 
@@ -84,25 +84,25 @@ class Tree extends React.Component<TreeProps, TreeState> {
     const { hostname } = this.props;
 
     this.setState(() => ({
-      loadState: "IS_LOADING"
+      loadState: "IS_LOADING",
     }));
 
     try {
       const [tree, pixels, brightness] = await Promise.all([
         getTree(hostname),
         getPixels(hostname),
-        getBrightness(hostname)
+        getBrightness(hostname),
       ]);
 
       this.setState(() => ({
         loadState: "LOADED",
         tree,
         brightness: parseFloat(brightness),
-        paint: mapPixelsToPaint(pixels)
+        paint: mapPixelsToPaint(pixels),
       }));
     } catch (e) {
       this.setState(() => ({
-        loadState: "LOAD_ERROR"
+        loadState: "LOAD_ERROR",
       }));
     }
   }
@@ -128,7 +128,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
     this.setState(() => ({
-      isDragging: true
+      isDragging: true,
     }));
   };
 
@@ -136,7 +136,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
     this.setState(() => ({
-      isDragging: false
+      isDragging: false,
     }));
   };
 
@@ -161,16 +161,16 @@ class Tree extends React.Component<TreeProps, TreeState> {
 
     setMode(hostname, mode)
       .then(() => (mode === "PAINT" ? getPixels(hostname) : Promise.resolve()))
-      .then(pixels => {
+      .then((pixels) => {
         this.setState(({ paint }) => ({
           mode,
           paint: mode === "PAINT" ? mapPixelsToPaint(pixels) : paint,
-          loadState: "LOADED"
+          loadState: "LOADED",
         }));
       })
       .catch(() => {
         this.setState(() => ({
-          loadState: "LOAD_ERROR"
+          loadState: "LOAD_ERROR",
         }));
       });
   };
@@ -181,7 +181,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     const { hostname } = this.props;
 
     this.setState(() => ({
-      brightness
+      brightness,
     }));
 
     setBrightness(hostname, brightness);
@@ -194,7 +194,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       paint,
       activeColor,
       brightness,
-      mode
+      mode,
     } = this.state;
 
     if (["LOAD_ERROR", "NOT_LOADED"].includes(loadState)) return null;
@@ -219,7 +219,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
           <React.Fragment>
             {tree.map((row, index) => (
               <p key={index}>
-                {row.map(led => (
+                {row.map((led) => (
                   <LED
                     key={led}
                     backgroundColor={paint[led]}

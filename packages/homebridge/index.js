@@ -3,7 +3,7 @@ const fetch = require("isomorphic-fetch");
 let Service;
 let Characteristic;
 
-module.exports = homebridge => {
+module.exports = (homebridge) => {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   homebridge.registerAccessory(
@@ -45,24 +45,24 @@ class ChristmasTreeLights {
 
   getSwitchOnCharacteristic(next) {
     fetch(`${this.lightUrl}/api/v1/pixels/status`)
-      .then(res => res.json())
-      .then(json => next(null, json.currentState));
+      .then((res) => res.json())
+      .then((json) => next(null, json.currentState));
   }
 
   setSwitchOnCharacteristic(on, next) {
     fetch(`${this.lightUrl}/api/v1/pixels/status`, {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ targetState: on })
+      body: JSON.stringify({ targetState: on }),
     }).then(() => next());
   }
 
   getSwitchBrightnessCharacteristic(next) {
     fetch(`${this.lightUrl}/api/v1/pixels/status`)
-      .then(res => res.json())
-      .then(json => next(null, json.brightness * 100));
+      .then((res) => res.json())
+      .then((json) => next(null, json.brightness * 100));
   }
 
   setSwitchBrightnessCharacteristic(value, next) {
@@ -71,9 +71,9 @@ class ChristmasTreeLights {
     fetch(`${this.lightUrl}/api/v1/pixels/brightness`, {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ brightness })
+      body: JSON.stringify({ brightness }),
     }).then(() => next());
   }
 }

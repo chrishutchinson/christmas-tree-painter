@@ -5,5 +5,5 @@ const getTree = (req, res) => {
 };
 
 module.exports = {
-  getTree
+  getTree,
 };

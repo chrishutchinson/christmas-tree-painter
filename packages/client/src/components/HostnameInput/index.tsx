@@ -16,7 +16,7 @@ const testHostname = (hostname: string, silentMode: boolean = true) =>
   new Promise((resolve, reject) => {
     const timeout = setTimeout(reject, 10000);
     fetch(`${hostname}/api/v1/connect${silentMode ? "/silent" : ""}`)
-      .then(res => {
+      .then((res) => {
         if (res.status !== 200) throw new Error(res.statusText);
         clearTimeout(timeout);
         return res;
@@ -30,7 +30,7 @@ class HostnameInput extends React.Component<
   HostnameInputState
 > {
   state: HostnameInputState = {
-    loadState: "IS_LOADING"
+    loadState: "IS_LOADING",
   };
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +43,7 @@ class HostnameInput extends React.Component<
     ) as HTMLInputElement;
 
     this.setState(() => ({
-      loadState: "IS_LOADING"
+      loadState: "IS_LOADING",
     }));
 
     try {
@@ -59,7 +59,7 @@ class HostnameInput extends React.Component<
       onComplete(hostname.value);
     } catch (e) {
       this.setState(() => ({
-        loadState: "LOAD_ERROR"
+        loadState: "LOAD_ERROR",
       }));
     }
   };
@@ -87,7 +87,7 @@ class HostnameInput extends React.Component<
     }
 
     this.setState(() => ({
-      loadState: "NOT_LOADED"
+      loadState: "NOT_LOADED",
     }));
   }
 

@@ -6,9 +6,9 @@ const resetAndExit = () => {
 };
 
 const delay = (milliseconds = 1000) =>
-  new Promise(resolve => setTimeout(resolve, milliseconds));
+  new Promise((resolve) => setTimeout(resolve, milliseconds));
 
-const colorwheel = pos => {
+const colorwheel = (pos) => {
   pos = 255 - pos;
   if (pos < 85) {
     return { r: 255 - pos * 3, g: 0, b: pos * 3 };
@@ -21,7 +21,7 @@ const colorwheel = pos => {
   }
 };
 
-const flatten = arr =>
+const flatten = (arr) =>
   arr.reduce((acc, a) => {
     if (Array.isArray(a)) return [...acc, ...flatten(a)];
     return [...acc, a];
@@ -31,5 +31,5 @@ module.exports = {
   resetAndExit,
   delay,
   colorwheel,
-  flatten
+  flatten,
 };

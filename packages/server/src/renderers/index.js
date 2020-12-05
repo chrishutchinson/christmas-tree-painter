@@ -9,7 +9,7 @@ module.exports.registerRenderer = (renderer, ledCount, tree) => (
     initialize,
     render,
     setBrightness,
-    refreshRate
+    refreshRate,
   } = require(`./${renderer}.js`);
 
   initialize(ledCount, tree);
