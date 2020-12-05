@@ -12,7 +12,7 @@ interface AppState {
 
 class App extends React.Component {
   state: AppState = {
-    hostname: null
+    hostname: null,
   };
 
   handleHostnameCompletion = async (hostname: string) => {

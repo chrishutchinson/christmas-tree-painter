@@ -13,7 +13,7 @@ interface ModeControlProps {
 
 export default ({ selected, onChange }: ModeControlProps) => (
   <Container>
-    {options.map(o => (
+    {options.map((o) => (
       <li key={o}>
         <input
           type="radio"

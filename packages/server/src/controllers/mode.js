@@ -23,7 +23,7 @@ const setMode = async (req, res) => {
       let cyclePixels = new Array(ledCount).fill(null);
       interval = setInterval(() => {
         req.ledRenderer.render(
-          cyclePixels.map(index => colorwheel((offset + index) % 256))
+          cyclePixels.map((index) => colorwheel((offset + index) % 256))
         );
 
         offset = (offset + 1) % 256;
@@ -36,7 +36,7 @@ const setMode = async (req, res) => {
           randomPixels.map(() => ({
             r: Math.floor(Math.random() * 255),
             g: Math.floor(Math.random() * 255),
-            b: Math.floor(Math.random() * 255)
+            b: Math.floor(Math.random() * 255),
           }))
         );
       }, req.ledRenderer.refreshRate * 50);
@@ -51,5 +51,5 @@ const setMode = async (req, res) => {
 };
 
 module.exports = {
-  setMode
+  setMode,
 };

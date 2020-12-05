@@ -7,16 +7,16 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   devServer: {
     contentBase: path.resolve(__dirname, "./src"),
     open: true,
-    port: 8000
+    port: 8000,
   },
   mode: NODE_ENV === "prod" ? "production" : "development",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
   module: {
     rules: [
@@ -24,12 +24,12 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "ts-loader"
-        }
-      }
-    ]
+          loader: "ts-loader",
+        },
+      },
+    ],
   },
   plugins: [
-    new CopyWebpackPlugin([{ from: "./src/index.html", to: "./index.html" }])
-  ]
+    new CopyWebpackPlugin([{ from: "./src/index.html", to: "./index.html" }]),
+  ],
 };

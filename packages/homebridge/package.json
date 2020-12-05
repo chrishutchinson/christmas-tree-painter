@@ -16,5 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "isomorphic-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }

@@ -9,7 +9,7 @@ const {
   setPixelBrightness,
   getPixelBrightness,
   getPixelStatus,
-  setPixelStatus
+  setPixelStatus,
 } = require("./controllers/pixels");
 const { getTree } = require("./controllers/tree");
 const { setMode } = require("./controllers/mode");

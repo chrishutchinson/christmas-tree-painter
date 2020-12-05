@@ -1,12 +1,14 @@
-const delay = (time = 500) => new Promise(resolve => setTimeout(resolve, time));
+const delay = (time = 500) =>
+  new Promise((resolve) => setTimeout(resolve, time));
 
 let pixelData;
 let brightnessData = 1;
 let onOffData = true;
 
-module.exports.getBlankPixels = count => new Array(count).fill({ r: 0, g: 0, b: 0 });
+module.exports.getBlankPixels = (count) =>
+  new Array(count).fill({ r: 0, g: 0, b: 0 });
 
-module.exports.initializePixels = count => {
+module.exports.initializePixels = (count) => {
   pixelData = new Array(count).fill({ r: 0, g: 0, b: 0 });
 
   return pixelData;
@@ -26,7 +28,7 @@ module.exports.setAllPixelsToColor = ({ r, g, b }) => {
   return pixelData;
 };
 
-const setManyPixelColors = (module.exports.setManyPixelColors = pixels => {
+const setManyPixelColors = (module.exports.setManyPixelColors = (pixels) => {
   pixels.forEach(({ r, g, b }, pixelId) => {
     pixelData[pixelId] = { r, g, b };
   });
@@ -44,16 +46,17 @@ const resetAllPixels = (module.exports.resetAllPixels = () => {
 
 module.exports.getCurrentBrightnessState = () => brightnessData;
 
-module.exports.setBrightness = brightness => {
+module.exports.setBrightness = (brightness) => {
   brightnessData = brightness;
   return brightnessData;
 };
 
-const getCurrentPixelState = module.exports.getCurrentPixelState = () => pixelData;
+const getCurrentPixelState = (module.exports.getCurrentPixelState = () =>
+  pixelData);
 
 module.exports.getSwitchState = () => onOffData;
 
-module.exports.setSwitchState = state => {
+module.exports.setSwitchState = (state) => {
   onOffData = !!state;
   return onOffData;
 };

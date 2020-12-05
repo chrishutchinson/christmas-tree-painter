@@ -6,11 +6,11 @@ let brightness = 1;
 const rgb2Int = (r, g, b) =>
   ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 
-module.exports.initialize = ledCount => {
+module.exports.initialize = (ledCount) => {
   ws281x.init(ledCount);
 };
 
-module.exports.setBrightness = b => {
+module.exports.setBrightness = (b) => {
   brightness = b;
 
   if (!lastOutput) return;
@@ -22,7 +22,7 @@ module.exports.setBrightness = b => {
   );
 };
 
-module.exports.render = output => {
+module.exports.render = (output) => {
   lastOutput = output;
 
   ws281x.render(

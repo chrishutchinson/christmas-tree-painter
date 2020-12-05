@@ -7,19 +7,19 @@ const {
   setBrightness,
   getSwitchState,
   setSwitchState,
-  getBlankPixels
+  getBlankPixels,
 } = require("../pixels");
 
 const getPixelStatus = (req, res) => {
   res.json({
-    currentState: getSwitchState()
+    currentState: getSwitchState(),
   });
 };
 
 const setPixelStatus = (req, res) => {
   const currentState = getSwitchState();
 
-  if(req.body.targetState === currentState) {
+  if (req.body.targetState === currentState) {
     res.end();
     return;
   }
@@ -29,7 +29,7 @@ const setPixelStatus = (req, res) => {
     setSwitchState(true);
     req.ledRenderer.render(pixels);
     res.json({
-      currentState: true
+      currentState: true,
     });
     return;
   }
@@ -37,7 +37,7 @@ const setPixelStatus = (req, res) => {
   setSwitchState(false);
   req.ledRenderer.render(getBlankPixels(ledCount));
   res.json({
-    currentState: false
+    currentState: false,
   });
 };
 
@@ -65,7 +65,7 @@ const setPixel = (req, res) => {
 
   const { r, g, b } = color;
 
-  if ([r, g, b].some(v => v > 255 || v < 0)) {
+  if ([r, g, b].some((v) => v > 255 || v < 0)) {
     res.status(400).send("Invalid RGB value passed, must be between 0 and 255");
     return;
   }
@@ -116,5 +116,5 @@ module.exports = {
   setPixelBrightness,
   getPixelBrightness,
   getPixelStatus,
-  setPixelStatus
+  setPixelStatus,
 };
