@@ -23,9 +23,14 @@ interface TreeProps {
   hostname: string;
 }
 
+type TreeRow = {
+  leds: Array<number>;
+  width: number;
+};
+
 interface TreeState {
   loadState: LoadState;
-  tree?: Array<Array<number>>;
+  tree?: Array<TreeRow>;
   colors?: Array<string>;
   activeColor?: ColorResult;
   brightness: number;
@@ -223,19 +228,25 @@ class Tree extends React.Component<TreeProps, TreeState> {
 
         {mode === "PAINT" && (
           <React.Fragment>
-            {tree.map((row, index) => (
-              <p key={index}>
-                {row.map((led) => (
-                  <LED
-                    key={led}
-                    backgroundColor={paint[led]}
-                    onMouseDown={this.handlePaint(led)}
-                    onKeyPress={this.handlePaint(led)}
-                    onMouseOver={this.handlePaintMouseover(led)}
-                  />
-                ))}
-              </p>
-            ))}
+            {tree.map((row, index) => {
+              const ledWidth = row.width / row.leds.length;
+              console.log({ ledWidth });
+
+              return (
+                <p key={index}>
+                  {row.leds.map((led) => (
+                    <LED
+                      key={led}
+                      width={ledWidth}
+                      backgroundColor={paint[led]}
+                      onMouseDown={this.handlePaint(led)}
+                      onKeyPress={this.handlePaint(led)}
+                      onMouseOver={this.handlePaintMouseover(led)}
+                    />
+                  ))}
+                </p>
+              );
+            })}
             <PaintPot
               colors={colors}
               color={activeColor}

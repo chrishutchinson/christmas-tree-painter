@@ -6,15 +6,15 @@ let brightness = 1;
 
 const setOutput = (output) => {
   const maxRow = tree.reduce(
-    (acc, row) => (row.length > acc ? row.length : acc),
+    (acc, row) => (row.leds.length > acc ? row.leds.length : acc),
     0
   );
   return tree.forEach((row) => {
-    const diff = maxRow - row.length;
+    const diff = maxRow - row.leds.length;
 
     console.log(
       ...new Array(Math.floor(diff / 2)).fill(" "),
-      ...row.map((led) => {
+      ...row.leds.map((led) => {
         const { r, g, b } = output[led];
         return chalk.rgb(r * brightness, g * brightness, b * brightness)("*");
       }),
