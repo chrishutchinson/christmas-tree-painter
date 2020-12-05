@@ -1,6 +1,6 @@
 {
-  "name": "homebridge-christmas-tree-lights",
-  "version": "1.0.0",
+  "name": "homebridge-christmas-tree-lights-ws281x",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^3.0.0"
   }
 }
