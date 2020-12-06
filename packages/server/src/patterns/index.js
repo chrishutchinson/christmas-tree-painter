@@ -3,7 +3,7 @@ const { flatten } = require("../helpers");
 
 module.exports.ledWipe = (render) =>
   new Promise((resolve) => {
-    const longestRowLength = tree[tree.length - 1].length - 1;
+    const longestRowLength = tree[tree.length - 1].leds.length - 1;
     const colorSegmentBlock = Math.floor(100 / tree.length);
     let count = 0;
 
@@ -16,8 +16,9 @@ module.exports.ledWipe = (render) =>
       render(
         flatten(
           tree.map((row, rowIndex) =>
-            row.map((_, index) =>
-              index + Math.ceil((longestRowLength - row.length) / 2) === count
+            row.leds.map((_, index) =>
+              index + Math.ceil((longestRowLength - row.leds.length) / 2) ===
+              count
                 ? {
                     r: colorSegmentBlock * rowIndex,
                     g: colorSegmentBlock * rowIndex - 55,
